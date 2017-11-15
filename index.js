@@ -2,14 +2,16 @@
 
 const AWS = require('aws-sdk');
 const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-const SQS_QUEUE_URL = '';
+var SQS_QUEUE_URL = '';
 
 exports.handler = (event, context, callback) => {
-    
+
+    SQS_QUEUE_URL = process.env.SQS_QUEUE_URL;
+    console.log('SQS queue url: ', SQS_QUEUE_URL);
+
     if (!SQS_QUEUE_URL)
         throw 'No SQS Queue configured';
 
-    SQS_QUEUE_URL = process.env.SQS_QUEUE_URL;
 
     var jsonObject = JSON.stringify(event, null, 2);
     console.log('Event data: ', jsonObject);
